@@ -1,13 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  margin: 0px;
+  padding: 0pc;
+  /* box-sizing: border-box; */
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+}
+.hide {
+  opacity: 0;
+}
+.hover:hover .hide {
+  opacity: 1;
+}
+.hover:hover .make-bold {
+  font-weight: 500;
+}
+.hide2 {
+  display: none;
+  bottom: 70px;
+}
+.show:hover .hide2 {
+  display: flex;
+  animation: showUp 0.3s ease-in-out;
+  cursor: pointer;
+}
+@keyframes showUp {
+  0% {
+    bottom: 0px;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 70px;
+  }
+}
+/* Chrome, Edge and Safari */
+.scroll-bar::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+.scroll-bar::-webkit-scrollbar-track {
+  border-radius: 17px;
+  background-color: #0b0b0b;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.scroll-bar::-webkit-scrollbar-track:hover {
+  background-color: #bfbfbf;
+}
+.scroll-bar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #fb1700;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb:hover {
+  background-color: #fb1700;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb:active {
+  background-color: #fb1700;
+}
+
+/* Add this CSS to your stylesheet */
+input[type="radio"]:checked + span {
+  background-color: gainsboro;
+  color: red;
+}
+
+.ActiveFromTop {
+  animation: activefromtop 0.2s ease;
+  transform: scale(0.95) translateX(22px) translateY(10px);
+}
+@keyframes activefromtop {
+  0% {
+    opacity: 0;
+    transform: translateX(22px) translateY(-60px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(22px) translateY(10px) scale(1);
+  }
+}
+.ActiveFromTop2{
+  animation: activefromtop2 0.25s ease-in-out;
+}
+@keyframes activefromtop2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.scroll-hide::-webkit-scrollbar{
+  opacity: 0;
+}
+
+.add-fav-btn{
+  opacity: 0;
+}
+.fav-card:hover .add-fav-btn{
+  opacity: 1;
+  transition: 0.3s;
+}
+.scroll-custom::-webkit-scrollbar{
+  visibility: hidden;
+}
+
+.scroll-small::-webkit-scrollbar{
+  width: 1px;
+}
+.spinning{
+  animation: spin 0.5s linear infinite;
+}
+@keyframes spin {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+  
 }
