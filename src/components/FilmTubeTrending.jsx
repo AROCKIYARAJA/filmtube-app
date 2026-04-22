@@ -12,7 +12,7 @@ function FilmTubeTrending() {
     try {
       async function getMovies() {
         const res = await fetch(
-          `https://api.themoviedb.org/3/trending/all/day?api_key=6a63466bd16b2f9626f41e66cf666555&page=${page}`
+          `https://api.themoviedb.org/3/trending/all/day?api_key=6a63466bd16b2f9626f41e66cf666555&page=${page}&include_adult=true`,
         );
         const data = await res.json();
         setApiMovies(data.results);

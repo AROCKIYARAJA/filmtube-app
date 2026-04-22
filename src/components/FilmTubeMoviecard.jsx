@@ -17,7 +17,7 @@ function FilmTubeMoviecard() {
   const [languages, setLanguages] = useState([]);
   const MovieLanguage = Movie.original_language;
   const FilmLanguageFind = languages.find(
-    (target) => target.iso_639_1 === MovieLanguage
+    (target) => target.iso_639_1 === MovieLanguage,
   );
   const [videoLink, setVideoLink] = useState([]);
   const [stars, setStars] = useState();
@@ -39,9 +39,10 @@ function FilmTubeMoviecard() {
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/${MediaType}/${MovieID}?api_key=6a63466bd16b2f9626f41e66cf666555`,
-          options
+          options,
         );
         const data = await response.json();
+        console.log(data);
         setMovie(data);
         setSeasonContainer(data.seasons);
       } catch (error) {
@@ -52,7 +53,7 @@ function FilmTubeMoviecard() {
 
     async function LanguageFetching() {
       let response = await fetch(
-        `https://api.themoviedb.org/3/configuration/languages?api_key=6a63466bd16b2f9626f41e66cf666555`
+        `https://api.themoviedb.org/3/configuration/languages?api_key=6a63466bd16b2f9626f41e66cf666555`,
       );
       let datum = await response.json();
       setLanguages(datum);
@@ -61,7 +62,7 @@ function FilmTubeMoviecard() {
 
     async function GetVideoLink() {
       const videoResponse = await fetch(
-        `https://api.themoviedb.org/3/${MediaType}/${MovieID}/videos?api_key=6a63466bd16b2f9626f41e66cf666555`
+        `https://api.themoviedb.org/3/${MediaType}/${MovieID}/videos?api_key=6a63466bd16b2f9626f41e66cf666555`,
       );
       const videoURL = await videoResponse.json();
       setVideoLink(videoURL.results);
@@ -70,7 +71,7 @@ function FilmTubeMoviecard() {
 
     async function getCrewMembers() {
       const crewRespone = await fetch(
-        `https://api.themoviedb.org/3/${MediaType}/${MovieID}/credits?api_key=6a63466bd16b2f9626f41e66cf666555`
+        `https://api.themoviedb.org/3/${MediaType}/${MovieID}/credits?api_key=6a63466bd16b2f9626f41e66cf666555`,
       );
       const crewData = await crewRespone.json();
       setStars(crewData.cast);
@@ -80,7 +81,7 @@ function FilmTubeMoviecard() {
     const options = { method: "GET", headers: { accept: "application/json" } };
     fetch(
       `https://api.themoviedb.org/3/${MediaType}/${MovieID}/images?api_key=6a63466bd16b2f9626f41e66cf666555`,
-      options
+      options,
     )
       .then((response) => response.json())
       .then((response) => {
@@ -112,7 +113,7 @@ function FilmTubeMoviecard() {
             alert("Document Doesn't Exists!");
             setFavorites([]);
           }
-        }
+        },
       );
       return () => {
         subscriber();
@@ -164,7 +165,7 @@ function FilmTubeMoviecard() {
 
   const ReletedCategoryMovies = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/${MediaType}?api_key=6a63466bd16b2f9626f41e66cf666555&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${suggestions}`
+      `https://api.themoviedb.org/3/discover/${MediaType}?api_key=6a63466bd16b2f9626f41e66cf666555&sort_by=popularity.desc&include_adult=${user?.email?.includes("fullaccess")}&include_video=false&page=1&with_genres=${suggestions}`,
     );
     const datum = await response.json();
     setRelatedCategory(datum.results);
@@ -177,7 +178,7 @@ function FilmTubeMoviecard() {
       let FindedCategory = [];
       for (let i = 0; i < Movie.genres.length; i++) {
         const Presentcategory = Movie.genres.find(
-          (target) => target.name === Movie.genres[i].name
+          (target) => target.name === Movie.genres[i].name,
         );
         FindedCategory.push(Presentcategory.id);
       }
@@ -197,7 +198,7 @@ function FilmTubeMoviecard() {
   useEffect(() => {
     const FetchCategory = async () => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/genre/${MediaType}/list?api_key=6a63466bd16b2f9626f41e66cf666555&language=en`
+        `https://api.themoviedb.org/3/genre/${MediaType}/list?api_key=6a63466bd16b2f9626f41e66cf666555&language=en`,
       );
       const datum = await response.json();
       setRelatedCategory(datum.genres);
@@ -238,7 +239,7 @@ function FilmTubeMoviecard() {
                   </span>
                   <span
                     className={`${color_picker(
-                      Movie.vote_average
+                      Movie.vote_average,
                     )} bg-white  font-bold px-2 py-2 sm:text-[20px] text-xs rounded-md flex items-center`}
                   >
                     {rating.toFixed(1)}{" "}
@@ -283,11 +284,12 @@ function FilmTubeMoviecard() {
                 </div>{" "}
                 |
                 <div className="md:text-[1.2rem] sm:text-[1rem] text-[11.5px]">
-                  {FilmLanguageFind?.english_name || "Language not available"}{" "}
+                  {FilmLanguageFind?.english_name ||
+                    "Language not available"}{" "}
                 </div>{" "}
                 |
                 <div className="md:text-[1.2rem] sm:text-[1rem] text-[11.5px]">
-                  TV Series
+                  TV Series {Movie.adult ? <span>🔞</span> : ""}
                 </div>{" "}
                 |
                 <div>
@@ -307,11 +309,12 @@ function FilmTubeMoviecard() {
                 </div>{" "}
                 |
                 <div className="md:text-[1.2rem] sm:text-[1rem] text-[13px]">
-                  {FilmLanguageFind?.english_name || "Language not available"}{" "}
+                  {FilmLanguageFind?.english_name ||
+                    "Language not available"}{" "}
                 </div>{" "}
                 |
                 <div className="md:text-[1.2rem] sm:text-[1rem] text-[13px]">
-                  Movie
+                  Movie {Movie.adult ? <span>🔞</span> : ""}
                 </div>
               </div>
             )}
