@@ -11,7 +11,7 @@ function FilmTubeSearch() {
   const [SearchType, setSearchType] = useState("movie");
   const [numOfPages, setNumOfPages] = useState();
   const [page, setPage] = useState(1);
-  const [accessAll, setAccessAll] = useState(false);
+  const [accessAll, setAccessAll] = useState(true);
   
 
   useEffect(() => {
